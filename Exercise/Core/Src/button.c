@@ -1,0 +1,46 @@
+#include "button.h"
+
+int button_flag [3] = {0, 0, 0};
+
+GPIO_TypeDef *BUTTON_PORT [3] = {BUTTON1_GPIO_Port, BUTTON2_GPIO_Port, BUTTON3_GPIO_Port};
+uint16_t BUTTON_PIN [3] = {BUTTON1_Pin, BUTTON2_Pin, BUTTON3_Pin};
+
+int BtnRegistor0 [3] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
+int BtnRegistor1 [3] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
+int BtnRegistor2 [3] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
+int BtnRegistor3 [3] = {NORMAL_STATE, NORMAL_STATE, NORMAL_STATE};
+int TimerForKeyPress [3] = {500, 500, 500};
+
+int isButtonPressed(int button){
+	if (button_flag[button] == 1){
+		button_flag[button] = 0;
+		return 1;
+	}
+	return 0;
+}
+
+void subKeyProcess(int button){
+	button_flag[button] = 1;
+}
+
+
+void getKeyInput(int button){
+	BtnRegistor0[button] = BtnRegistor1[button];
+	BtnRegistor1[button] = BtnRegistor2[button];
+	BtnRegistor2[button] = HAL_GPIO_ReadPin(BUTTON_PORT[button], BUTTON_PIN[button]);
+	if ((BtnRegistor0[button] == BtnRegistor1[button]) && (BtnRegistor1[button] == BtnRegistor2[button])){
+		if (BtnRegistor3[button] != BtnRegistor2[button]){
+			BtnRegistor3[button] = BtnRegistor2[button];
+			if (BtnRegistor2[button] == PRESSED_STATE){
+				subKeyProcess(button);
+				TimerForKeyPress[button] = 500;
+			}
+		}
+		else{
+			TimerForKeyPress[button]--;
+			if (TimerForKeyPress[button] <= 0){
+				BtnRegistor3[button] = NORMAL_STATE;
+			}
+		}
+	}
+}
