@@ -526,7 +526,7 @@ void displayDuration(int mode, int duration){
  8000492:	2100      	movs	r1, #0
  8000494:	2001      	movs	r0, #1
  8000496:	f000 fc0d 	bl	8000cb4 <display7SEG>
-	display7SEG(2, duration % 10);
+	display7SEG(2, duration%10);
  800049a:	683a      	ldr	r2, [r7, #0]
  800049c:	4b0e      	ldr	r3, [pc, #56]	; (80004d8 <displayDuration+0x58>)
  800049e:	fb83 1302 	smull	r1, r3, r3, r2
@@ -540,7 +540,7 @@ void displayDuration(int mode, int duration){
  80004b0:	1ad1      	subs	r1, r2, r3
  80004b2:	2002      	movs	r0, #2
  80004b4:	f000 fbfe 	bl	8000cb4 <display7SEG>
-	display7SEG(3, (int) (duration / 10));
+	display7SEG(3, (int) (duration/10));
  80004b8:	683b      	ldr	r3, [r7, #0]
  80004ba:	4a07      	ldr	r2, [pc, #28]	; (80004d8 <displayDuration+0x58>)
  80004bc:	fb82 1203 	smull	r1, r2, r2, r3
@@ -559,7 +559,7 @@ void displayDuration(int mode, int duration){
  80004d8:	66666667 	.word	0x66666667
 
 080004dc <fsm_manual_run>:
-
+//handle manual setting
 void fsm_manual_run(){
  80004dc:	b580      	push	{r7, lr}
  80004de:	af00      	add	r7, sp, #0

@@ -2,6 +2,7 @@
 #define INC_FSM_MANUAL_H_
 
 #include <global_vars.h>
+//handle manual setting
 void fsm_manual_run();
 
 #endif /* INC_FSM_MANUAL_H_ */
