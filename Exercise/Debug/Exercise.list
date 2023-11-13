@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  000200a0  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000958f  00000000  00000000  000200c9  2**0
+ 12 .debug_info   00009590  00000000  00000000  000200c9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001bd2  00000000  00000000  00029658  2**0
+ 13 .debug_abbrev 00001bc5  00000000  00000000  00029659  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000a48  00000000  00000000  0002b230  2**3
+ 14 .debug_aranges 00000a48  00000000  00000000  0002b220  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000938  00000000  00000000  0002bc78  2**3
+ 15 .debug_ranges 00000938  00000000  00000000  0002bc68  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00016d0f  00000000  00000000  0002c5b0  2**0
+ 16 .debug_macro  00016d0f  00000000  00000000  0002c5a0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000b892  00000000  00000000  000432bf  2**0
+ 17 .debug_line   0000b896  00000000  00000000  000432af  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008245e  00000000  00000000  0004eb51  2**0
+ 18 .debug_str    0008245d  00000000  00000000  0004eb45  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000d0faf  2**0
+ 19 .comment      00000053  00000000  00000000  000d0fa2  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002880  00000000  00000000  000d1004  2**2
+ 20 .debug_frame  00002880  00000000  00000000  000d0ff8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -170,7 +170,7 @@ void getKeyInput(int button){
  80001e4:	4a2a      	ldr	r2, [pc, #168]	; (8000290 <getKeyInput+0xf0>)
  80001e6:	687b      	ldr	r3, [r7, #4]
  80001e8:	f842 1023 	str.w	r1, [r2, r3, lsl #2]
-	if ((BtnRegistor0[button] == BtnRegistor1[button]) && (BtnRegistor1[button] == BtnRegistor2[button])){
+	if ((BtnRegistor0[button] == BtnRegistor1[button]) && (BtnRegistor1[button] == BtnRegistor2[button]))
  80001ec:	4a27      	ldr	r2, [pc, #156]	; (800028c <getKeyInput+0xec>)
  80001ee:	687b      	ldr	r3, [r7, #4]
  80001f0:	f852 2023 	ldr.w	r2, [r2, r3, lsl #2]
@@ -187,7 +187,8 @@ void getKeyInput(int button){
  800020c:	f851 3023 	ldr.w	r3, [r1, r3, lsl #2]
  8000210:	429a      	cmp	r2, r3
  8000212:	d135      	bne.n	8000280 <getKeyInput+0xe0>
-		if (BtnRegistor3[button] != BtnRegistor2[button]){
+	{
+		if (BtnRegistor3[button] != BtnRegistor2[button])
  8000214:	4a21      	ldr	r2, [pc, #132]	; (800029c <getKeyInput+0xfc>)
  8000216:	687b      	ldr	r3, [r7, #4]
  8000218:	f852 2023 	ldr.w	r2, [r2, r3, lsl #2]
@@ -196,6 +197,7 @@ void getKeyInput(int button){
  8000220:	f851 3023 	ldr.w	r3, [r1, r3, lsl #2]
  8000224:	429a      	cmp	r2, r3
  8000226:	d017      	beq.n	8000258 <getKeyInput+0xb8>
+		{
 			BtnRegistor3[button] = BtnRegistor2[button];
  8000228:	4a19      	ldr	r2, [pc, #100]	; (8000290 <getKeyInput+0xf0>)
  800022a:	687b      	ldr	r3, [r7, #4]
@@ -203,12 +205,13 @@ void getKeyInput(int button){
  8000230:	491a      	ldr	r1, [pc, #104]	; (800029c <getKeyInput+0xfc>)
  8000232:	687b      	ldr	r3, [r7, #4]
  8000234:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
-			if (BtnRegistor2[button] == PRESSED_STATE){
+			if (BtnRegistor2[button] == PRESSED_STATE)
  8000238:	4a15      	ldr	r2, [pc, #84]	; (8000290 <getKeyInput+0xf0>)
  800023a:	687b      	ldr	r3, [r7, #4]
  800023c:	f852 3023 	ldr.w	r3, [r2, r3, lsl #2]
  8000240:	2b00      	cmp	r3, #0
  8000242:	d11d      	bne.n	8000280 <getKeyInput+0xe0>
+			{
 				subKeyProcess(button);
  8000244:	6878      	ldr	r0, [r7, #4]
  8000246:	f7ff ff9b 	bl	8000180 <subKeyProcess>
@@ -217,7 +220,7 @@ void getKeyInput(int button){
  800024c:	687b      	ldr	r3, [r7, #4]
  800024e:	f44f 71fa 	mov.w	r1, #500	; 0x1f4
  8000252:	f842 1023 	str.w	r1, [r2, r3, lsl #2]
-			if (TimerForKeyPress[button] <= 0){
+			{
 				BtnRegistor3[button] = NORMAL_STATE;
 			}
 		}
@@ -232,7 +235,7 @@ void getKeyInput(int button){
  8000262:	490f      	ldr	r1, [pc, #60]	; (80002a0 <getKeyInput+0x100>)
  8000264:	687b      	ldr	r3, [r7, #4]
  8000266:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
-			if (TimerForKeyPress[button] <= 0){
+			if (TimerForKeyPress[button] <= 0)
  800026a:	4a0d      	ldr	r2, [pc, #52]	; (80002a0 <getKeyInput+0x100>)
  800026c:	687b      	ldr	r3, [r7, #4]
  800026e:	f852 3023 	ldr.w	r3, [r2, r3, lsl #2]
@@ -264,7 +267,7 @@ void fsm_automatic_run(int lane){
  80002a6:	b084      	sub	sp, #16
  80002a8:	af00      	add	r7, sp, #0
  80002aa:	6078      	str	r0, [r7, #4]
-	if (timer_counter[lane] % 100 == 0){
+	if (timerCounter[lane] % 100 == 0){
  80002ac:	4a60      	ldr	r2, [pc, #384]	; (8000430 <fsm_automatic_run+0x18c>)
  80002ae:	687b      	ldr	r3, [r7, #4]
  80002b0:	f852 2023 	ldr.w	r2, [r2, r3, lsl #2]
@@ -278,7 +281,7 @@ void fsm_automatic_run(int lane){
  80002c6:	1ad3      	subs	r3, r2, r3
  80002c8:	2b00      	cmp	r3, #0
  80002ca:	d127      	bne.n	800031c <fsm_automatic_run+0x78>
-		int remaining_time = timer_counter[lane] / 100;
+		int remaining_time = timerCounter[lane] / 100;
  80002cc:	4a58      	ldr	r2, [pc, #352]	; (8000430 <fsm_automatic_run+0x18c>)
  80002ce:	687b      	ldr	r3, [r7, #4]
  80002d0:	f852 3023 	ldr.w	r3, [r2, r3, lsl #2]
@@ -1309,7 +1312,7 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 08000950 <setTimer>:
 #include "setTimer.h"
 
-int timer_counter [3] = {0,0,0};
+int timerCounter [3] = {0,0,0};
 int timer_flag [3] = {0,0,0};
 
 void setTimer(int type, int duration){
@@ -1318,7 +1321,7 @@ void setTimer(int type, int duration){
  8000954:	af00      	add	r7, sp, #0
  8000956:	6078      	str	r0, [r7, #4]
  8000958:	6039      	str	r1, [r7, #0]
-	timer_counter[type] = duration;
+	timerCounter[type] = duration;
  800095a:	4907      	ldr	r1, [pc, #28]	; (8000978 <setTimer+0x28>)
  800095c:	687b      	ldr	r3, [r7, #4]
  800095e:	683a      	ldr	r2, [r7, #0]
@@ -1342,18 +1345,18 @@ void setTimer(int type, int duration){
 void timerRun(){
  8000980:	b480      	push	{r7}
  8000982:	af00      	add	r7, sp, #0
-	if(timer_counter[0] > 0){
+	if(timerCounter[0] > 0){
  8000984:	4b19      	ldr	r3, [pc, #100]	; (80009ec <timerRun+0x6c>)
  8000986:	681b      	ldr	r3, [r3, #0]
  8000988:	2b00      	cmp	r3, #0
  800098a:	dd0b      	ble.n	80009a4 <timerRun+0x24>
-		timer_counter[0]--;
+		timerCounter[0]--;
  800098c:	4b17      	ldr	r3, [pc, #92]	; (80009ec <timerRun+0x6c>)
  800098e:	681b      	ldr	r3, [r3, #0]
  8000990:	3b01      	subs	r3, #1
  8000992:	4a16      	ldr	r2, [pc, #88]	; (80009ec <timerRun+0x6c>)
  8000994:	6013      	str	r3, [r2, #0]
-		if(timer_counter[0] <= 0){
+		if(timerCounter[0] <= 0){
  8000996:	4b15      	ldr	r3, [pc, #84]	; (80009ec <timerRun+0x6c>)
  8000998:	681b      	ldr	r3, [r3, #0]
  800099a:	2b00      	cmp	r3, #0
@@ -1364,18 +1367,18 @@ void timerRun(){
  80009a2:	601a      	str	r2, [r3, #0]
 		}
 	}
-	if(timer_counter[1] > 0){
+	if(timerCounter[1] > 0){
  80009a4:	4b11      	ldr	r3, [pc, #68]	; (80009ec <timerRun+0x6c>)
  80009a6:	685b      	ldr	r3, [r3, #4]
  80009a8:	2b00      	cmp	r3, #0
  80009aa:	dd0b      	ble.n	80009c4 <timerRun+0x44>
-		timer_counter[1]--;
+		timerCounter[1]--;
  80009ac:	4b0f      	ldr	r3, [pc, #60]	; (80009ec <timerRun+0x6c>)
  80009ae:	685b      	ldr	r3, [r3, #4]
  80009b0:	3b01      	subs	r3, #1
  80009b2:	4a0e      	ldr	r2, [pc, #56]	; (80009ec <timerRun+0x6c>)
  80009b4:	6053      	str	r3, [r2, #4]
-		if(timer_counter[1] <= 0){
+		if(timerCounter[1] <= 0){
  80009b6:	4b0d      	ldr	r3, [pc, #52]	; (80009ec <timerRun+0x6c>)
  80009b8:	685b      	ldr	r3, [r3, #4]
  80009ba:	2b00      	cmp	r3, #0
@@ -1386,18 +1389,18 @@ void timerRun(){
  80009c2:	605a      	str	r2, [r3, #4]
 		}
 	}
-	if(timer_counter[2] > 0){
+	if(timerCounter[2] > 0){
  80009c4:	4b09      	ldr	r3, [pc, #36]	; (80009ec <timerRun+0x6c>)
  80009c6:	689b      	ldr	r3, [r3, #8]
  80009c8:	2b00      	cmp	r3, #0
  80009ca:	dd0b      	ble.n	80009e4 <timerRun+0x64>
-		timer_counter[2]--;
+		timerCounter[2]--;
  80009cc:	4b07      	ldr	r3, [pc, #28]	; (80009ec <timerRun+0x6c>)
  80009ce:	689b      	ldr	r3, [r3, #8]
  80009d0:	3b01      	subs	r3, #1
  80009d2:	4a06      	ldr	r2, [pc, #24]	; (80009ec <timerRun+0x6c>)
  80009d4:	6093      	str	r3, [r2, #8]
-		if(timer_counter[2] <= 0){
+		if(timerCounter[2] <= 0){
  80009d6:	4b05      	ldr	r3, [pc, #20]	; (80009ec <timerRun+0x6c>)
  80009d8:	689b      	ldr	r3, [r3, #8]
  80009da:	2b00      	cmp	r3, #0

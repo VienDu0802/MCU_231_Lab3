@@ -1,8 +1,8 @@
 #include "fsm_auto.h"
 
 void fsm_automatic_run(int lane){
-	if (timerCounter[lane] % 100 == 0){
-		int remaining_time = timerCounter[lane] / 100;
+	if (timer_counter[lane] % 100 == 0){
+		int remaining_time = timer_counter[lane] / 100;
 		display7SEG(lane*2, remaining_time % 10);
 		display7SEG(lane*2+1, (int) (remaining_time / 10));
 	}

@@ -28,21 +28,17 @@ void getKeyInput(int button){
 	BtnRegistor0[button] = BtnRegistor1[button];
 	BtnRegistor1[button] = BtnRegistor2[button];
 	BtnRegistor2[button] = HAL_GPIO_ReadPin(BUTTON_PORT[button], BUTTON_PIN[button]);
-	if ((BtnRegistor0[button] == BtnRegistor1[button]) && (BtnRegistor1[button] == BtnRegistor2[button]))
-	{
-		if (BtnRegistor3[button] != BtnRegistor2[button])
-		{
+	if ((BtnRegistor0[button] == BtnRegistor1[button]) && (BtnRegistor1[button] == BtnRegistor2[button])){
+		if (BtnRegistor3[button] != BtnRegistor2[button]){
 			BtnRegistor3[button] = BtnRegistor2[button];
-			if (BtnRegistor2[button] == PRESSED_STATE)
-			{
+			if (BtnRegistor2[button] == PRESSED_STATE){
 				subKeyProcess(button);
 				TimerForKeyPress[button] = 500;
 			}
 		}
 		else{
 			TimerForKeyPress[button]--;
-			if (TimerForKeyPress[button] <= 0)
-			{
+			if (TimerForKeyPress[button] <= 0){
 				BtnRegistor3[button] = NORMAL_STATE;
 			}
 		}
