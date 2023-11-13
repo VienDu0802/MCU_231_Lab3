@@ -19,21 +19,21 @@ void fsm_automatic_run(int lane){
 			}
 			break;
 		case RED_STATE:
-			setRed(lane);
+			setTrafficLightRed(lane);
 			if(timer_flag[lane] == 1){
 				LED_STATE[lane] = GREEN_STATE;
 				setTimer(lane, GREEN_DURATION*100);
 			}
 			break;
 		case GREEN_STATE:
-			setGreen(lane);
+			setTrafficLightGreen(lane);
 			if(timer_flag[lane] == 1){
 				LED_STATE[lane] = YELLOW_STATE;
 				setTimer(lane, YELLOW_DURATION*100);
 			}
 			break;
 		case YELLOW_STATE:
-			setAmber(lane);
+			setTrafficLightAmber(lane);
 			if(timer_flag[lane] == 1){
 				LED_STATE[lane] = RED_STATE;
 				setTimer(lane, RED_DURATION*100);

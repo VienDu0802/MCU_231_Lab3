@@ -39,11 +39,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_line   0000b896  00000000  00000000  000432af  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008245d  00000000  00000000  0004eb45  2**0
+ 18 .debug_str    00082439  00000000  00000000  0004eb45  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000d0fa2  2**0
+ 19 .comment      00000053  00000000  00000000  000d0f7e  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002880  00000000  00000000  000d0ff8  2**2
+ 20 .debug_frame  00002880  00000000  00000000  000d0fd4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -376,9 +376,9 @@ void fsm_automatic_run(int lane){
 			break;
  8000386:	e04e      	b.n	8000426 <fsm_automatic_run+0x182>
 		case RED_STATE:
-			setTrafficLightRed(lane);
+			setRed(lane);
  8000388:	6878      	ldr	r0, [r7, #4]
- 800038a:	f000 fbed 	bl	8000b68 <setTrafficLightRed>
+ 800038a:	f000 fbed 	bl	8000b68 <setRed>
 			if(timer_flag[lane] == 1){
  800038e:	4a2e      	ldr	r2, [pc, #184]	; (8000448 <fsm_automatic_run+0x1a4>)
  8000390:	687b      	ldr	r3, [r7, #4]
@@ -402,9 +402,9 @@ void fsm_automatic_run(int lane){
 			break;
  80003b6:	e031      	b.n	800041c <fsm_automatic_run+0x178>
 		case GREEN_STATE:
-			setTrafficLightGreen(lane);
+			setGreen(lane);
  80003b8:	6878      	ldr	r0, [r7, #4]
- 80003ba:	f000 fc01 	bl	8000bc0 <setTrafficLightGreen>
+ 80003ba:	f000 fc01 	bl	8000bc0 <setGreen>
 			if(timer_flag[lane] == 1){
  80003be:	4a22      	ldr	r2, [pc, #136]	; (8000448 <fsm_automatic_run+0x1a4>)
  80003c0:	687b      	ldr	r3, [r7, #4]
@@ -428,9 +428,9 @@ void fsm_automatic_run(int lane){
 			break;
  80003e6:	e01b      	b.n	8000420 <fsm_automatic_run+0x17c>
 		case YELLOW_STATE:
-			setTrafficLightAmber(lane);
+			setAmber(lane);
  80003e8:	6878      	ldr	r0, [r7, #4]
- 80003ea:	f000 fc15 	bl	8000c18 <setTrafficLightAmber>
+ 80003ea:	f000 fc15 	bl	8000c18 <setAmber>
 			if(timer_flag[lane] == 1){
  80003ee:	4a16      	ldr	r2, [pc, #88]	; (8000448 <fsm_automatic_run+0x1a4>)
  80003f0:	687b      	ldr	r3, [r7, #4]
@@ -1788,36 +1788,36 @@ void setTrafficLightDefault(int lane){
  8000b60:	20000070 	.word	0x20000070
  8000b64:	20000074 	.word	0x20000074
 
-08000b68 <setTrafficLightRed>:
+08000b68 <setRed>:
 
-void setTrafficLightRed(int lane){
+void setRed(int lane){
  8000b68:	b580      	push	{r7, lr}
  8000b6a:	b082      	sub	sp, #8
  8000b6c:	af00      	add	r7, sp, #0
  8000b6e:	6078      	str	r0, [r7, #4]
 	HAL_GPIO_WritePin(GPIOA, REDLIGHT[lane], RESET);
- 8000b70:	4a0f      	ldr	r2, [pc, #60]	; (8000bb0 <setTrafficLightRed+0x48>)
+ 8000b70:	4a0f      	ldr	r2, [pc, #60]	; (8000bb0 <setRed+0x48>)
  8000b72:	687b      	ldr	r3, [r7, #4]
  8000b74:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  8000b78:	2200      	movs	r2, #0
  8000b7a:	4619      	mov	r1, r3
- 8000b7c:	480d      	ldr	r0, [pc, #52]	; (8000bb4 <setTrafficLightRed+0x4c>)
+ 8000b7c:	480d      	ldr	r0, [pc, #52]	; (8000bb4 <setRed+0x4c>)
  8000b7e:	f000 fd18 	bl	80015b2 <HAL_GPIO_WritePin>
 	HAL_GPIO_WritePin(GPIOA, GREENLIGHT[lane], SET);
- 8000b82:	4a0d      	ldr	r2, [pc, #52]	; (8000bb8 <setTrafficLightRed+0x50>)
+ 8000b82:	4a0d      	ldr	r2, [pc, #52]	; (8000bb8 <setRed+0x50>)
  8000b84:	687b      	ldr	r3, [r7, #4]
  8000b86:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  8000b8a:	2201      	movs	r2, #1
  8000b8c:	4619      	mov	r1, r3
- 8000b8e:	4809      	ldr	r0, [pc, #36]	; (8000bb4 <setTrafficLightRed+0x4c>)
+ 8000b8e:	4809      	ldr	r0, [pc, #36]	; (8000bb4 <setRed+0x4c>)
  8000b90:	f000 fd0f 	bl	80015b2 <HAL_GPIO_WritePin>
 	HAL_GPIO_WritePin(GPIOA, AMBERLIGHT[lane], SET);
- 8000b94:	4a09      	ldr	r2, [pc, #36]	; (8000bbc <setTrafficLightRed+0x54>)
+ 8000b94:	4a09      	ldr	r2, [pc, #36]	; (8000bbc <setRed+0x54>)
  8000b96:	687b      	ldr	r3, [r7, #4]
  8000b98:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  8000b9c:	2201      	movs	r2, #1
  8000b9e:	4619      	mov	r1, r3
- 8000ba0:	4804      	ldr	r0, [pc, #16]	; (8000bb4 <setTrafficLightRed+0x4c>)
+ 8000ba0:	4804      	ldr	r0, [pc, #16]	; (8000bb4 <setRed+0x4c>)
  8000ba2:	f000 fd06 	bl	80015b2 <HAL_GPIO_WritePin>
 }
  8000ba6:	bf00      	nop
@@ -1830,36 +1830,36 @@ void setTrafficLightRed(int lane){
  8000bb8:	20000070 	.word	0x20000070
  8000bbc:	20000074 	.word	0x20000074
 
-08000bc0 <setTrafficLightGreen>:
+08000bc0 <setGreen>:
 
-void setTrafficLightGreen(int lane){
+void setGreen(int lane){
  8000bc0:	b580      	push	{r7, lr}
  8000bc2:	b082      	sub	sp, #8
  8000bc4:	af00      	add	r7, sp, #0
  8000bc6:	6078      	str	r0, [r7, #4]
 	HAL_GPIO_WritePin(GPIOA, REDLIGHT[lane], SET);
- 8000bc8:	4a0f      	ldr	r2, [pc, #60]	; (8000c08 <setTrafficLightGreen+0x48>)
+ 8000bc8:	4a0f      	ldr	r2, [pc, #60]	; (8000c08 <setGreen+0x48>)
  8000bca:	687b      	ldr	r3, [r7, #4]
  8000bcc:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  8000bd0:	2201      	movs	r2, #1
  8000bd2:	4619      	mov	r1, r3
- 8000bd4:	480d      	ldr	r0, [pc, #52]	; (8000c0c <setTrafficLightGreen+0x4c>)
+ 8000bd4:	480d      	ldr	r0, [pc, #52]	; (8000c0c <setGreen+0x4c>)
  8000bd6:	f000 fcec 	bl	80015b2 <HAL_GPIO_WritePin>
 	HAL_GPIO_WritePin(GPIOA, GREENLIGHT[lane], RESET);
- 8000bda:	4a0d      	ldr	r2, [pc, #52]	; (8000c10 <setTrafficLightGreen+0x50>)
+ 8000bda:	4a0d      	ldr	r2, [pc, #52]	; (8000c10 <setGreen+0x50>)
  8000bdc:	687b      	ldr	r3, [r7, #4]
  8000bde:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  8000be2:	2200      	movs	r2, #0
  8000be4:	4619      	mov	r1, r3
- 8000be6:	4809      	ldr	r0, [pc, #36]	; (8000c0c <setTrafficLightGreen+0x4c>)
+ 8000be6:	4809      	ldr	r0, [pc, #36]	; (8000c0c <setGreen+0x4c>)
  8000be8:	f000 fce3 	bl	80015b2 <HAL_GPIO_WritePin>
 	HAL_GPIO_WritePin(GPIOA, AMBERLIGHT[lane], SET);
- 8000bec:	4a09      	ldr	r2, [pc, #36]	; (8000c14 <setTrafficLightGreen+0x54>)
+ 8000bec:	4a09      	ldr	r2, [pc, #36]	; (8000c14 <setGreen+0x54>)
  8000bee:	687b      	ldr	r3, [r7, #4]
  8000bf0:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  8000bf4:	2201      	movs	r2, #1
  8000bf6:	4619      	mov	r1, r3
- 8000bf8:	4804      	ldr	r0, [pc, #16]	; (8000c0c <setTrafficLightGreen+0x4c>)
+ 8000bf8:	4804      	ldr	r0, [pc, #16]	; (8000c0c <setGreen+0x4c>)
  8000bfa:	f000 fcda 	bl	80015b2 <HAL_GPIO_WritePin>
 }
  8000bfe:	bf00      	nop
@@ -1872,35 +1872,35 @@ void setTrafficLightGreen(int lane){
  8000c10:	20000070 	.word	0x20000070
  8000c14:	20000074 	.word	0x20000074
 
-08000c18 <setTrafficLightAmber>:
-void setTrafficLightAmber(int lane){
+08000c18 <setAmber>:
+void setAmber(int lane){
  8000c18:	b580      	push	{r7, lr}
  8000c1a:	b082      	sub	sp, #8
  8000c1c:	af00      	add	r7, sp, #0
  8000c1e:	6078      	str	r0, [r7, #4]
 	HAL_GPIO_WritePin(GPIOA, REDLIGHT[lane], SET);
- 8000c20:	4a0f      	ldr	r2, [pc, #60]	; (8000c60 <setTrafficLightAmber+0x48>)
+ 8000c20:	4a0f      	ldr	r2, [pc, #60]	; (8000c60 <setAmber+0x48>)
  8000c22:	687b      	ldr	r3, [r7, #4]
  8000c24:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  8000c28:	2201      	movs	r2, #1
  8000c2a:	4619      	mov	r1, r3
- 8000c2c:	480d      	ldr	r0, [pc, #52]	; (8000c64 <setTrafficLightAmber+0x4c>)
+ 8000c2c:	480d      	ldr	r0, [pc, #52]	; (8000c64 <setAmber+0x4c>)
  8000c2e:	f000 fcc0 	bl	80015b2 <HAL_GPIO_WritePin>
 	HAL_GPIO_WritePin(GPIOA, GREENLIGHT[lane], SET);
- 8000c32:	4a0d      	ldr	r2, [pc, #52]	; (8000c68 <setTrafficLightAmber+0x50>)
+ 8000c32:	4a0d      	ldr	r2, [pc, #52]	; (8000c68 <setAmber+0x50>)
  8000c34:	687b      	ldr	r3, [r7, #4]
  8000c36:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  8000c3a:	2201      	movs	r2, #1
  8000c3c:	4619      	mov	r1, r3
- 8000c3e:	4809      	ldr	r0, [pc, #36]	; (8000c64 <setTrafficLightAmber+0x4c>)
+ 8000c3e:	4809      	ldr	r0, [pc, #36]	; (8000c64 <setAmber+0x4c>)
  8000c40:	f000 fcb7 	bl	80015b2 <HAL_GPIO_WritePin>
 	HAL_GPIO_WritePin(GPIOA, AMBERLIGHT[lane], RESET);
- 8000c44:	4a09      	ldr	r2, [pc, #36]	; (8000c6c <setTrafficLightAmber+0x54>)
+ 8000c44:	4a09      	ldr	r2, [pc, #36]	; (8000c6c <setAmber+0x54>)
  8000c46:	687b      	ldr	r3, [r7, #4]
  8000c48:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
  8000c4c:	2200      	movs	r2, #0
  8000c4e:	4619      	mov	r1, r3
- 8000c50:	4804      	ldr	r0, [pc, #16]	; (8000c64 <setTrafficLightAmber+0x4c>)
+ 8000c50:	4804      	ldr	r0, [pc, #16]	; (8000c64 <setAmber+0x4c>)
  8000c52:	f000 fcae 	bl	80015b2 <HAL_GPIO_WritePin>
 }
  8000c56:	bf00      	nop

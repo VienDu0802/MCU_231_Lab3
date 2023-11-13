@@ -3,9 +3,9 @@
 
 #include "main.h"
 void setTrafficLightDefault(int lane);
-void setRed(int lane);
-void setGreen(int lane);
-void setAmber(int lane);
+void setTrafficLightRed(int lane);
+void setTrafficLightGreen(int lane);
+void setTrafficLightAmber(int lane);
 
 void display7SEG(int type, int num);
 
