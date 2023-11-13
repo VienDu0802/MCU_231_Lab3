@@ -15,7 +15,7 @@ void displayDuration(int mode, int duration){
 	display7SEG(2, duration%10);
 	display7SEG(3, (int) (duration/10));
 }
-//handle manual setting
+
 void fsm_manual_run(){
 	switch(MODE){
 		case MODE_1:
